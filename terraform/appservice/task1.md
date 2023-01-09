@@ -20,15 +20,15 @@ After the command, some questions will appear at the prompt, so enter and select
 
 `Subscription: Choose the right subscription `
 
-`Define value for OS	1:              Linux`
+`Define value for OS	1:                Linux`
 
-`Define value for pricing tier:	P1v2`
+`Define value for pricing tier:       	P1v2`
 
-`Define value for Java version	1: Java 8 or 2: Java 11 `
+`Define value for Java version	1:      Java 8 or 2: Java 11 `
 
-`Define value for runtime stack	3: TOMCAT 9.0`
+`Define value for runtime stack	3:      TOMCAT 9.0`
 
-`Confirm (Y/N):	Y `
+`Confirm (Y/N):                       	Y `
 
 You'll see a new section in the <plugins> section in your pom.xml file.
 
