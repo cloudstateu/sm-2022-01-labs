@@ -4,7 +4,39 @@ Azure provides Azure App Service as a platform as a service (PaaS) for running T
 ## Get sample JSF applications
 To deploy a Java web application, you can get a PrimeFaces JavaServer Faces (JSF) web application from GitHub as shown here.
 
-` git clone https://github.com/yoshioterada/Deploy-PrimeFaces-JSF-Web-App-on-Tomcat-9.0 `
+```
+git clone https://github.com/yoshioterada/Deploy-PrimeFaces-JSF-Web-App-on-Tomcat-9.0 
+```
+Then you'll see the following files in the directory:
+
+```
+Deploy-PrimeFaces-JSF-Web-App-on-Tomcat-9.0
+├── pom.xml
+└── src
+    └── main
+        ├── java
+        │   └── com
+        │       └── microsoft
+        │           └── azure
+        │               └── samples
+        │                   ├── controller
+        │                   │   └── TodoListController.java
+        │                   ├── dao
+        │                   │   ├── ItemManagement.java
+        │                   │   └── TodoItemManagementInMemory.java
+        │                   └── model
+        │                       └── TodoItem.java
+        └── webapp
+            ├── META-INF
+            │   └── context.xml
+            ├── WEB-INF
+            │   ├── beans.xml
+            │   ├── classes
+            │   │   └── logging.properties
+            │   ├── faces-config.xml
+            │   └── web.xml
+            └── index.xhtml
+ ```
 
 ## Maven Plugin for Azure App Service
 Microsoft provides the Maven Plugin for Azure App Service to make it easier for Java developers to deploy applications to Azure. By using this plug-in, you can easily configure and deploy your application to Azure. Execute the following command to use Maven Plugin for Azure App Service.
@@ -12,7 +44,7 @@ Microsoft provides the Maven Plugin for Azure App Service to make it easier for 
 Configure the Maven Plugin for Azure App Service
 To configure the Maven Plugin for Azure App Service, execute the following command:
 
-` mvn com.microsoft.azure:azure-webapp-maven-plugin:1.12.0:config `
+``` mvn com.microsoft.azure:azure-webapp-maven-plugin:1.12.0:config ```
 
 After the command, some questions will appear at the prompt, so enter and select the appropriate items and set them. Enter the following options:
 
@@ -32,7 +64,40 @@ After the command, some questions will appear at the prompt, so enter and select
 
 You'll see a new section in the <plugins> section in your pom.xml file.
 
-If you want to change the resource group name, instance name, and deployment location, change [resourceGroup], [appName], and [region].
+If you want to change the resource group name, instance name, and deployment location, change `<resourceGroup>`, `<appName>`, and `<region>`.
+  
+  ```
+  <plugins>
+      <plugin>
+        <groupId>com.microsoft.azure</groupId>
+        <artifactId>azure-webapp-maven-plugin</artifactId>
+        <version>1.12.0</version>
+        <configuration>
+          <schemaVersion>V2</schemaVersion>
+          <subscriptionId>********-****-****-****-************</subscriptionId>
+          <resourceGroup>azure-javaweb-app</resourceGroup>
+          <appName>azure-javaweb-app-1601463451101</appName>
+          <pricingTier>P1v2</pricingTier>
+          <region>japaneast</region>
+          <runtime>
+            <os>linux</os>
+            <javaVersion>Java 8</javaVersion>
+            <webContainer>TOMCAT 9.0</webContainer>
+          </runtime>
+          <deployment>
+            <resources>
+              <resource>
+                <directory>${project.basedir}/target</directory>
+                <includes>
+                  <include>*.war</include>
+                </includes>
+              </resource>
+            </resources>
+          </deployment>
+        </configuration>
+      </plugin>
+    </plugins>
+ ```
 
 # Compile and deploy to Azure App Service
 Now that the settings for deploying to Azure App Service are complete, compile the source code again.   
