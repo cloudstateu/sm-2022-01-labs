@@ -20,7 +20,7 @@ After the command, some questions will appear at the prompt, so enter and select
 
 `Subscription: Choose the right subscription `
 
-`Define value for OS	1:                Linux`
+`Define value for OS	1:              Linux`
 
 `Define value for pricing tier:       	P1v2`
 
