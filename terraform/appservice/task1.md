@@ -45,7 +45,7 @@ Configure the Maven Plugin for Azure App Service
 To configure the Maven Plugin for Azure App Service, execute the following command:
 
 ```
-mvn com.microsoft.azure:azure-webapp-maven-plugin:1.12.0:config
+mvn com.microsoft.azure:azure-webapp-maven-plugin:2.8.0:config
 ```
 
 After the command, some questions will appear at the prompt, so enter and select the appropriate items and set them. Enter the following options:
