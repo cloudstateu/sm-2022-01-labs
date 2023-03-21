@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: srv3
+  namespace: srv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: srv3
+  template:
+    metadata:
+      labels:
+        app: srv3
+    spec:
+      containers:
+      - name: srv3
+        image: cloudstateu/versions-app:error
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv3
+  namespace: srv
+  labels:
+    app: srv3
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5000
+    name: http
+  selector:
+    app: srv3
+--- 
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: srv3
+  namespace: srv
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /srv3
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: srv3.srv.svc.cluster.local
+        port:
+          number: 5000
+    retries:
+      attempts: 5
